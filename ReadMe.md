@@ -77,6 +77,112 @@ DB_PASSWORD=<password>
 ENCRYPTION_SECRET_KEY=your-32-char-secret-key
 ENCRYPTION_SALT=your-16-char-salt
 
+3. Database Setup
+Using CockroachDB Cloud
+Create account at CockroachDB Cloud
+Create new cluster
+Get connection string
+Local Setup
+CREATE DATABASE test;
+
+4. Build & Run
+# Build
+mvn clean install
+# Run
+mvn spring-boot:run
+# Docker Build
+docker build -t spring-cockroachdb-api .
+docker run -p 8080:8080 spring-cockroachdb-api
+
+
+📚 API Documentation
+User Endpoints
+Method	Endpoint	Description
+POST	/api/users	Create user
+GET	/api/users/{id}	Get user
+GET	/api/users?page=0&size=10	Get users (paginated)
+PUT	/api/users/{id}	Update user
+DELETE	/api/users/{id}	Delete user
+Bank Information Endpoints
+Method	Endpoint	Description
+POST	/api/users/{userId}/bank-information	Add bank info
+GET	/api/users/{userId}/bank-information	Get bank info
+PUT	/api/users/{userId}/bank-information	Update bank info
+DELETE	/api/users/{userId}/bank-information	Delete bank info
+
+Sample Requests
+Create User
+
+POST /api/users
+{
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "phoneNumber": "+1234567890"
+}
+
+Add Bank Information
+POST /api/users/{userId}/bank-information
+{
+    "bankName": "Bank of America",
+    "accountType": "CHECKING",
+    "bankAccountNumber": "1234567890"
+}
+
+
+🔒 Security
+Encryption Configuration
+
+@Configuration
+public class SecurityConfig {
+    @Value("${encryption.secret-key}")
+    private String secretKey;
+
+    @Value("${encryption.salt}")
+    private String salt;
+
+    @Bean
+    public EncryptionUtil encryptionUtil() {
+        return new EncryptionUtil(secretKey, salt);
+    }
+}
 
 
 
+🐳 Docker Deployment
+FROM openjdk:17-jdk-slim
+COPY target/*.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
+
+Build and run:
+
+docker build -t spring-cockroachdb-api .
+docker run -p 8080:8080 spring-cockroachdb-api
+
+🧪 Testing
+# Run all tests
+mvn test
+
+# Run specific test class
+mvn test -Dtest=UserServiceTest
+
+# Generate test coverage report
+mvn verify
+
+📈 Performance
+Pagination Example
+GET /api/users?page=0&size=10&sort=firstName,desc
+{
+    "content": [...],
+    "pageNumber": 0,
+    "pageSize": 10,
+    "totalElements": 100,
+    "totalPages": 10,
+    "last": false
+}
+🤝 Contributing
+Fork the repository
+Create feature branch (git checkout -b feature/AmazingFeature)
+Commit changes (git commit -m 'Add AmazingFeature')
+Push to branch (git push origin feature/AmazingFeature)
+Open Pull Request
