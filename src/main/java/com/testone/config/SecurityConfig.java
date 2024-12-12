@@ -19,7 +19,8 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // Disable CSRF protection
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/users/**").permitAll() // Allow access to /users
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll() // Allow Swagger URLs
+                        .requestMatchers("/users/**").permitAll() // Allow access to /users endpoints
                         .anyRequest().authenticated() // Require authentication for other endpoints
                 )
                 .httpBasic(httpBasic -> httpBasic.disable()) // Disable basic authentication
