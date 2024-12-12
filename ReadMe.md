@@ -1,229 +1,242 @@
-Backend Developer Code Test: Spring Boot REST API with CockroachDB
-Project Overview
-This project demonstrates a REST API built with Spring Boot and CockroachDB to manage user data and encrypted bank information.
-The API implements CRUD operations for users and their associated bank details, ensuring secure encryption of sensitive data.
-Unit tests are also included to ensure the reliability of the service and controller layers.
+# 🏦 Backend Developer Code Test: Spring Boot REST API with CockroachDB
 
-Features
-User and Bank Information management with CRUD operations.
-CockroachDB integration for data persistence.
-Encryption and decryption of sensitive bank account numbers using AES.
-Unit tests for services and controllers with JUnit and Mockito.
-Environment variable support for sensitive configurations (e.g., database credentials, encryption keys).
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-2.7.0-brightgreen)
+![Java](https://img.shields.io/badge/Java-17-orange)
+![CockroachDB](https://img.shields.io/badge/CockroachDB-Latest-blue)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-Prerequisites
-Java 17 or higher
-Maven 3.8+
-CockroachDB (Cloud or Local setup)
-Postman (optional, for API testing)
+## 📑 Table of Contents
+- [Project Objective](#project-objective)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [API Documentation](#api-documentation)
+- [Database Schema](#database-schema)
+- [Security](#security)
+- [Testing](#testing)
+- [Docker Deployment](#docker-deployment)
 
-Installation Guide
-1. Clone the Repository
-   git clone <repository_url>
-   cd <repository_directory>
-2. Configure Environment Variables
-   Create a .env file in the root directory with the following contents:
+## 🎯 Project Objective
 
-DB_URL=jdbc:postgresql://<your-cockroachdb-url>:26257/<database-name>?sslmode=verify-full
+This code test demonstrates the implementation of a Spring Boot REST API with CockroachDB, featuring:
+- Basic CRUD operations for user management
+- Secure storage of encrypted bank information
+- Integration with CockroachDB
+- Comprehensive unit testing
+- API documentation with Swagger
+
+### Key Highlights
+- 🔐 AES encryption for bank data
+- 📑 Swagger API documentation
+- 🔄 Complete CRUD operations
+- 📊 Pagination support
+- 🐳 Docker containerization
+- ✅ Unit testing coverage
+
+## ✨ Features
+
+### Core Functionality
+- User management with CRUD operations
+- Encrypted bank information storage
+- Foreign key relationships
+- Data validation
+- Environmental configuration
+- Comprehensive error handling
+
+### Enhanced Features
+- AES-256 encryption for bank account numbers
+- Pagination for data retrieval
+- Swagger documentation
+- Docker support
+- Comprehensive unit tests
+
+## 🛠 Tech Stack
+
+- **Framework**: Spring Boot 2.7.0
+- **Database**: CockroachDB
+- **Security**: AES Encryption
+- **Documentation**: Swagger/OpenAPI
+- **Testing**: JUnit 5, Mockito
+- **Build Tool**: Maven
+- **Containerization**: Docker
+
+## 📋 Prerequisites
+
+- Java 17+
+- Maven 3.8+
+- CockroachDB
+- Docker (optional)
+- Postman (optional)
+
+## 💻 Installation
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/kiyaeh/BackendDevTest.git
+cd <your-project-directory>
+
+2. Environment Configuration
+Create .env file:
+DB_URL=jdbc:postgresql://<cockroachdb-url>:26257/<database-name>?sslmode=verify-full
 DB_USERNAME=<your-db-username>
 DB_PASSWORD=<your-db-password>
 ENCRYPTION_SECRET_KEY=12345678901234567890123456789012
 ENCRYPTION_SALT=1234567890123456
 
+3. Database Setup
+CockroachDB Cloud Setup
+Create an account at CockroachDB Cloud
+Set up a new cluster
+Create database:
+CREATE DATABASE test;
 
-3. Set Up CockroachDB
-   If using CockroachDB Cloud:
-   Create a database and obtain the connection URL, username, and password.
-   If running locally:
-   Download and start CockroachDB locally.
-   Create a database using SQL:
-   sql
-   CREATE DATABASE test;
+Local Setup
+Install CockroachDB
+Start local cluster
+Create database
 
-4. Build and Run the Project
-   Run the following commands in the project directory:
-# Build the project
+4. Build & Run
+# Build project
 mvn clean install
 
-# Run the application
+# Run application
 mvn spring-boot:run
 
-5. Access the Application
-   The API is accessible at: http://localhost:8080/api
-   API Endpoints
+# Docker Build 
+docker build -t backend-code-test .
+docker run -p 8080:8080 backend-code-test
 
-   User Endpoints
-
-   HTTP Method	Endpoint	Description
-   POST	/users	Create a new user
-   GET	/users/{id}	Retrieve user by ID
-   PUT	/users/{id}	Update user details
-   DELETE	/users/{id}	Delete user
-
-   Bank Information Endpoints
-   HTTP Method	Endpoint	Description
-   POST	/users/{userId}/bank-information	Add bank information for a user
-   GET	/users/{userId}/bank-information	Retrieve user's bank information
-   PUT	/users/{userId}/bank-information	Update user's bank information
-   DELETE	/users/{userId}/bank-information	Delete user's bank information
-
-
-
-Here’s a detailed and professional documentation draft for your Spring Boot project, incorporating the provided information:
-
-Backend Developer Code Test: Spring Boot REST API with CockroachDB
-Project Overview
-This project demonstrates a REST API built with Spring Boot and CockroachDB to manage user data and encrypted bank information. The API implements CRUD operations for users and their associated bank details, ensuring secure encryption of sensitive data. Unit tests are also included to ensure the reliability of the service and controller layers.
-
-Features
-User and Bank Information management with CRUD operations.
-CockroachDB integration for data persistence.
-Encryption and decryption of sensitive bank account numbers using AES.
-Unit tests for services and controllers with JUnit and Mockito.
-Environment variable support for sensitive configurations (e.g., database credentials, encryption keys).
-Prerequisites
-Java 17 or higher
-Maven 3.8+
-CockroachDB (Cloud or Local setup)
-Postman (optional, for API testing)
-Installation Guide
-1. Clone the Repository
-   bash
-   Copy code
-   git clone <repository_url>
-   cd <repository_directory>
-2. Configure Environment Variables
-   Create a .env file in the root directory with the following contents:
-
-plaintext
-Copy code
-DB_URL=jdbc:postgresql://<your-cockroachdb-url>:26257/<database-name>?sslmode=verify-full
-DB_USERNAME=<your-db-username>
-DB_PASSWORD=<your-db-password>
-ENCRYPTION_SECRET_KEY=12345678901234567890123456789012
-ENCRYPTION_SALT=1234567890123456
-3. Set Up CockroachDB
-   If using CockroachDB Cloud:
-   Create a database and obtain the connection URL, username, and password.
-   If running locally:
-   Download and start CockroachDB locally.
-   Create a database using SQL:
-   sql
-   Copy code
-   CREATE DATABASE test;
-4. Build and Run the Project
-   Run the following commands in the project directory:
-
-bash
-Copy code
-# Build the project
-mvn clean install
-
-# Run the application
-mvn spring-boot:run
-5. Access the Application
-   The API is accessible at: http://localhost:8080/api
-   API Endpoints
-
-   User Endpoints
-   HTTP Method	Endpoint	Description
-   POST	/users	Create a new user
-   GET	/users/{id}	Retrieve user by ID
-   PUT	/users/{id}	Update user details
-   DELETE	/users/{id}	Delete user
-   Bank Information Endpoints
-   HTTP Method	Endpoint	Description
-   POST	/users/{userId}/bank-information	Add bank information for a user
-   GET	/users/{userId}/bank-information	Retrieve user's bank information
-   PUT	/users/{userId}/bank-information	Update user's bank information
-   DELETE	/users/{userId}/bank-information	Delete user's bank information
-
-
-
-   Sample Request & Response
-   POST /users
-   Request
-   {
-   "firstName": "John",
-   "lastName": "Doe",
-   "email": "john.doe@example.com",
-   "phoneNumber": "+1234567890"
-   }
-   Response
-   {
-   "id": "e7bb8d6e-7f72-4f49-b67d-6ecbf12be19a",
-   "firstName": "John",
-   "lastName": "Doe",
-   "email": "john.doe@example.com",
-   "phoneNumber": "+1234567890"
-   }
-
-   POST /users/{userId}/bank-information
-   Content-Type: application/json
+📚 API Documentation
+Entity Structure
+User Entity
+{
+    "id": "UUID",
+    "firstName": "String",
+    "lastName": "String",
+    "email": "String",
+    "phoneNumber": "String"
+}
+BankInformation Entity
 
 {
-"bankName": "Bank of America",
-"accountType": "Checking",
-"bankAccountNumber": "123456789"
+    "id": "UUID",
+    "userId": "UUID",
+    "bankAccountNumber": "String (encrypted)",
+    "bankName": "String",
+    "accountType": "String"
 }
+API Endpoints
 
-response
+User Management
+
+Method	Endpoint	Description
+POST	/api/users	Create user
+GET	/api/users/{id}	Get user
+PUT	/api/users/{id}	Update user
+DELETE	/api/users/{id}	Delete user
+
+Bank Information Management
+
+Method	Endpoint	Description
+
+POST	/api/users/{userId}/bank-information	Add bank info
+GET	/api/users/{userId}/bank-information	Get bank info
+PUT	/api/users/{userId}/bank-information	Update bank info
+DELETE	/api/users/{userId}/bank-information	Delete bank info
+Sample Requests
+Create User
+
+POST /api/users
 {
-"id": "uuid",
-"bankName": "Bank of America",
-"accountType": "Checking",
-"bankAccountNumber": "EncryptedValue"
+    "firstName": "John",
+    "lastName": "Doe",
+    "email": "john.doe@example.com",
+    "phoneNumber": "+1234567890"
 }
-   Configuration Details
-   application.yml
+Add Bank Information
 
-   spring:
-   datasource:
-   url: "${DB_URL}"
-   username: "${DB_USERNAME}"
-   password: "${DB_PASSWORD}"
-   driver-class-name: org.postgresql.Driver
-
-jpa:
-hibernate:
-ddl-auto: update
-show-sql: true
-properties:
-hibernate:
-format_sql: true
-dialect: org.hibernate.dialect.PostgreSQLDialect
-
-server:
-port: 8080
-servlet:
-context-path: /api
-
-encryption:
-secret-key: "${ENCRYPTION_SECRET_KEY}"
-salt: "${ENCRYPTION_SALT}"
-
-
-Encryption Details
-The BankInformation entity uses AES encryption to secure sensitive data:
-
-The bankAccountNumber field is encrypted before being stored in the database.
-Decryption is handled transparently when retrieving data through the API.
-
+POST /api/users/{userId}/bank-information
+{
+    "bankName": "Bank of America",
+    "accountType": "Checking",
+    "bankAccountNumber": "123456789"
+}
+🔒 Security
 Encryption Configuration
-Code Reference:
 
 @Configuration
 public class SecurityConfig {
-@Bean
-public PasswordEncoder passwordEncoder() {
-return new BCryptPasswordEncoder();
-}
-}
+    @Value("${encryption.secret-key}")
+    private String secretKey;
 
-Unit Testing
-Unit tests are implemented using JUnit and Mockito:
+    @Value("${encryption.salt}")
+    private String salt;
 
-Service Layer: Tests business logic.
-Controller Layer: Ensures proper routing and response validation.
-Run tests with:
+    @Bean
+    public EncryptionUtil encryptionUtil() {
+        return new EncryptionUtil(secretKey, salt);
+    }
+}
+Application Properties.
+yaml
+spring:
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+encryption:
+  secret-key: ${ENCRYPTION_SECRET_KEY}
+  salt: ${ENCRYPTION_SALT}
+🧪 Testing
+Running Tests
+
+# Run all tests
 mvn test
+
+# Run specific test
+mvn test -Dtest=UserServiceTest
+
+# Generate coverage report
+mvn verify
+Test Coverage
+Service Layer Tests
+Controller Layer Tests
+Encryption/Decryption Tests
+Integration Tests
+🐳 Docker Deployment
+Dockerfile
+dockerfile
+
+FROM openjdk:17-jdk-slim
+COPY target/*.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
+Build & Run
+
+docker build -t backend-code-test .
+docker run -p 8080:8080 backend-code-test
+📈 Additional Features
+Pagination Example
+
+GET /api/users?page=0&size=10&sort=firstName,desc
+Response:
+
+{
+    "content": [...],
+    "pageNumber": 0,
+    "pageSize": 10,
+    "totalElements": 100,
+    "totalPages": 10,
+    "last": false
+}
+Swagger UI
+Access API documentation at:
+http://localhost:8080/swagger-ui.html
