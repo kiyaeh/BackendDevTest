@@ -4,6 +4,10 @@ import com.testone.model.User;
 import com.testone.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -13,7 +17,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-
+    public Page<User> getPaginatedUsers(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
     public User createUser(User user) {
         return userRepository.save(user);
     }
