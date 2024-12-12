@@ -1,0 +1,25 @@
+# Spring Boot application configuration
+spring:
+  datasource:
+    url: "${DB_URL}"
+    username: "${DB_USERNAME}"
+    password: "${DB_PASSWORD}"
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+      show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  port: 8080 # Change this if port conflicts occur
+  servlet:
+    context-path: /api # Base URL path for the API
+
+encryption:
+  secret-key: "${ENCRYPTION_SECRET_KEY}" # Default key for encryption (32 characters)
+  salt: "${ENCRYPTION_SALT}" # Default salt for encryption (16 characters)
